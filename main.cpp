@@ -1,5 +1,5 @@
 #include <iostream>
-#include <fstream>
+#include <sstream>
 #include <Windows.h>
 #define clear system("cls");
 #define NL '\n'
@@ -9,20 +9,9 @@ char Game_Area[3][3];
 int player = 1;
 int x = 0;
 int y = 0;
+std::string Xstr;
+std::string Ystr;
 bool Valid_Input = false;
-
-void Print_Values()
-{
-    std::cout << NL << NL;
-    for (int i = 0; i < 3; i++)
-    {
-        for (int n = 0; n < 3; n++)
-        {
-            std::cout << Game_Area[i][n];
-        }
-        std::cout << NL;
-    }
-}
 
 
 
@@ -82,8 +71,10 @@ int main()
     clear;
     do
     {
+        std::cout << "y" << NL;
         for (int x = 0; x < 3; ++x)
         {
+            std::cout << 3-x << " ";
             for (int y = 0; y < 3; y++)
             {
                 std::cout << '[';
@@ -100,6 +91,7 @@ int main()
             }
             std::cout << NL;
         }
+        std::cout << "   1  2  3  x" << NL;
         //Loop that prints Game area
         if (END_GAME() == 0)
         {
@@ -107,32 +99,72 @@ int main()
             {
                 if (player == 1)
                 {
-                    std::cout << "Player 1:";
-                    std::cin >> x >> y;
-                    if (x * y <= 9 || x * y > 0) //input validation                                 // podminka aby neslo napsat misto ,ktere uz je zabrane
+                    std::cout << "Player 1:" << NL;
+                    std::cout << "x y: ";
+                    std::cin >> Ystr >> Xstr;
+                    std::stringstream(Xstr) >> x;
+                    x = 4-x;
+                    std::stringstream(Ystr) >> y;
+                    if (x == 0 || y == 0)
+                    {
+                        std::cout << "Invalid input!";
+                        Sleep(1500);
+                    }
+                    else if(x > 3 || y > 3 || x < 1 || y < 1)
+                    {
+                        std::cout << "Out of playground!";
+                        Sleep(1200);
+                    }
+                    else if(Game_Area[x-1][y-1] != 'N')
+                    {
+                        std::cout << "This field is already occupied";
+                        Sleep(1200);
+                    }
+                    else
                     {
                         Valid_Input == true;
-                        Game_Area[--x][--y] = 'X';
+                        Game_Area[x-1][y-1] = 'X';
                         player = 2;
                     }
                 }
                 else if (player == 2)
                 {
-                    std::cout << "Player 2:";
-                    std::cin >> x >> y;
-                    if (x * y <= 9 || x * y > 0) //input validation
+                    std::cout << "Player 2:" << NL;
+                    std::cout << "x y: ";
+                    std::cin >> Ystr >> Xstr;
+                    std::stringstream(Xstr) >> x;
+                    x = 4-x;
+                    std::stringstream(Ystr) >> y;
+                    if (x == 0 || y == 0)
+                    {
+                        std::cout << NL << "Invalid input!";
+                        Sleep(1500);
+                    }
+                    else if(x > 3 || y > 3 || x < 1 || y < 1)
+                    {
+                        std::cout << "Out of playground!";
+                        Sleep(1200);
+                    }
+                    else if(Game_Area[x-1][y-1] != 'N')
+                    {
+                        std::cout << "This field is already occupied";
+                        Sleep(1200);
+                    }
+                    else
                     {
                         Valid_Input == true;
-                        Game_Area[--x][--y] = 'O';
+                        Game_Area[x-1][y-1] = 'O';
                         player = 1;
                     }
                 }
+                x = 0;
+                y = 0;
+                Xstr = "";
+                Ystr = "";
                 clear;
             } while (Valid_Input == true);
         }
-            x = 0;
-            y = 0;
-            Valid_Input = false;
+        Valid_Input = false;
     } while (END_GAME() == 0);
     switch (END_GAME())
     {
