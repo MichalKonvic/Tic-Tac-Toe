@@ -50,7 +50,6 @@ int END_GAME()
         {
             if (Game_Area[x_loop][y_loop] == 'X')
             {
-                                                                                                //podmínka aby x_loop nebo y_loop nebyl mimo pole
                 if (Game_Area[x_loop-1][y_loop] == 'X' && Game_Area[x_loop][y_loop] == 'X' && Game_Area[x_loop+1][y_loop] == 'X'){return 1;}if (Game_Area[x_loop][y_loop] == 'X' && Game_Area[x_loop+1][y_loop] == 'X' && Game_Area[x_loop+2][y_loop] == 'X'){return 1;}if (Game_Area[x_loop][y_loop] == 'X' && Game_Area[x_loop-1][y_loop] == 'X' && Game_Area[x_loop-2][y_loop] == 'X'){return 1;}if (Game_Area[x_loop][y_loop-1] == 'X' && Game_Area[x_loop][y_loop] == 'X' && Game_Area[x_loop][y_loop+1] == 'X'){return 1;}if (Game_Area[x_loop][y_loop] == 'X' && Game_Area[x_loop][y_loop+1] == 'X' && Game_Area[x_loop][y_loop+2] == 'X'){return 1;}if (Game_Area[x_loop][y_loop] == 'X' && Game_Area[x_loop][y_loop-1] == 'X' && Game_Area[x_loop][y_loop-2] == 'X'){return 1;}if (Game_Area[x_loop-1][y_loop-1] == 'X' && Game_Area[x_loop][y_loop] == 'X' && Game_Area[x_loop+1][y_loop+1] == 'X'){return 1;}if (Game_Area[x_loop][y_loop] == 'X' && Game_Area[x_loop+1][y_loop+1] == 'X' && Game_Area[x_loop+2][y_loop+2] == 'X'){return 1;}if (Game_Area[x_loop][y_loop] == 'X' && Game_Area[x_loop-1][y_loop-1] == 'X' && Game_Area[x_loop-2][y_loop-2] == 'X'){return 1;}
             }
             if (Game_Area[x_loop][y_loop] == 'O')
@@ -92,7 +91,6 @@ int main()
             std::cout << NL;
         }
         std::cout << "   1  2  3  x" << NL;
-        //Loop that prints Game area
         if (END_GAME() == 0)
         {
             do
